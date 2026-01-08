@@ -1,0 +1,7 @@
+{
+  "name": "Alpha Cupim - Controle de Pragas no Cariri",
+  "description": "Landing page mobile-first para a Alpha Cupim, focada em conversão via WhatsApp para serviços de dedetização em Juazeiro do Norte e região do Cariri.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
