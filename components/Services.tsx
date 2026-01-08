@@ -1,8 +1,8 @@
 
 import React from 'react';
 import { Bug, Home, ShieldAlert, ArrowRight, FileCheck, Building2 } from 'lucide-react';
-import { GlowingEffect } from './ui/glowing-effect';
-import { InteractiveHoverButton } from './ui/interactive-hover-button';
+import { GlowingEffect } from './ui/glowing-effect.tsx';
+import { InteractiveHoverButton } from './ui/interactive-hover-button.tsx';
 
 const ServiceCard: React.FC<{ title: string; desc: string; icon: React.ReactNode; index: number }> = ({ title, desc, icon, index }) => {
   const handleClick = () => {

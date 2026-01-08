@@ -1,6 +1,6 @@
 
 "use client";
-import React from "react";
+import React, { useRef } from "react";
 import {
   motion,
   useAnimationFrame,
@@ -8,8 +8,7 @@ import {
   useMotionValue,
   useTransform,
 } from "framer-motion";
-import { useRef } from "react";
-import { cn } from "../../lib/utils";
+import { cn } from "../../lib/utils.ts";
 
 export function Button({
   borderRadius = "1.75rem",
@@ -83,13 +82,10 @@ export const MovingBorder = ({
   ry?: string;
   [key: string]: any;
 }) => {
-  // Fix: Added null as initial value to useRef to satisfy strict TypeScript checks
   const pathRef = useRef<any>(null);
-  // Fix: Ensure useMotionValue is initialized with a value to resolve "Expected 1 arguments, but got 0"
   const progress = useMotionValue(0);
 
   useAnimationFrame((time) => {
-    // Fix: Added optional chaining for safer method calls on the SVG element
     const length = pathRef.current?.getTotalLength?.();
     if (length) {
       const pxPerMillisecond = length / duration;
@@ -97,7 +93,6 @@ export const MovingBorder = ({
     }
   });
 
-  // Fix: Safely access getPointAtLength with optional chaining and fallback
   const x = useTransform(
     progress,
     (val) => pathRef.current?.getPointAtLength?.(val)?.x || 0

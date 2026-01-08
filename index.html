@@ -14,8 +14,6 @@
         --primary-blue: #0a192f;
         --accent-blue: #2563eb;
         --whatsapp-green: #22c55e;
-        
-        /* Cores do Tailwind como variáveis CSS para Moving Border */
         --sky-500: #0ea5e9;
         --blue-500: #3b82f6;
         --blue-600: #2563eb;
@@ -42,23 +40,6 @@
         0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
         70% { transform: scale(1.03); box-shadow: 0 0 0 15px rgba(34, 197, 94, 0); }
         100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
-      }
-      .premium-glass {
-        background: rgba(255, 255, 255, 0.6);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border: 1px solid rgba(255, 255, 255, 0.5);
-        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
-      }
-      .premium-shadow {
-        box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.1);
-      }
-      .hover-premium {
-        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      }
-      .hover-premium:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 30px 60px -12px rgba(15, 23, 42, 0.12);
       }
       .reveal {
         opacity: 0;
@@ -93,24 +74,23 @@
     <script type="importmap">
 {
   "imports": {
-    "react/": "https://esm.sh/react@^19.2.3/",
     "react": "https://esm.sh/react@^19.2.3",
+    "react-dom": "https://esm.sh/react-dom@^19.2.3",
+    "react-dom/client": "https://esm.sh/react-dom@^19.2.3/client",
     "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
     "clsx": "https://esm.sh/clsx@^2.1.1",
-    "motion/": "https://esm.sh/motion@^12.24.12/",
     "framer-motion": "https://esm.sh/framer-motion@^11.13.1",
-    "tailwind-merge": "https://esm.sh/tailwind-merge@^3.4.0"
+    "tailwind-merge": "https://esm.sh/tailwind-merge@^3.4.0",
+    "motion/": "https://esm.sh/motion@^12.24.12/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/"
   }
 }
 </script>
   </head>
   <body class="bg-noise mesh-bg selection:bg-blue-100 selection:text-blue-900 overflow-x-hidden">
     <div id="root"></div>
-    
-    <!-- Scripts de inicialização -->
-    <script type="module" src="/index.tsx"></script>
-
+    <script type="module" src="index.tsx"></script>
     <script>
       const setupRevealSystem = () => {
         const observer = new IntersectionObserver((entries) => {
@@ -126,13 +106,11 @@
             }
           });
         }, { threshold: 0.1 });
-
         const scan = () => {
           document.querySelectorAll('.reveal:not(.visible), .reveal-stagger:not(.visible)').forEach(el => {
             observer.observe(el);
           });
         };
-
         const mutationObserver = new MutationObserver(scan);
         mutationObserver.observe(document.body, { childList: true, subtree: true });
         scan();

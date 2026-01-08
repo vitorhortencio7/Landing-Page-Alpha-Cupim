@@ -1,18 +1,18 @@
 
 import React from 'react';
-import Header from './components/Header';
-import Hero from './components/Hero';
-import WorkGallery from './components/WorkGallery';
-import ClientCarousel from './components/ClientCarousel';
-import TrustProof from './components/TrustProof';
-import Services from './components/Services';
-import Benefits from './components/Benefits';
-import HowItWorks from './components/HowItWorks';
-import Testimonials from './components/Testimonials';
-import FAQ from './components/FAQ';
-import CTA from './components/CTA';
-import Footer from './components/Footer';
-import FloatingWhatsApp from './components/FloatingWhatsApp';
+import Header from './components/Header.tsx';
+import Hero from './components/Hero.tsx';
+import WorkGallery from './components/WorkGallery.tsx';
+import ClientCarousel from './components/ClientCarousel.tsx';
+import TrustProof from './components/TrustProof.tsx';
+import Services from './components/Services.tsx';
+import Benefits from './components/Benefits.tsx';
+import HowItWorks from './components/HowItWorks.tsx';
+import Testimonials from './components/Testimonials.tsx';
+import FAQ from './components/FAQ.tsx';
+import CTA from './components/CTA.tsx';
+import Footer from './components/Footer.tsx';
+import FloatingWhatsApp from './components/FloatingWhatsApp.tsx';
 
 const App: React.FC = () => {
   return (
