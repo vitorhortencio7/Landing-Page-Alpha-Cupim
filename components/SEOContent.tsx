@@ -12,7 +12,8 @@ const SEOCard: React.FC<{
   index: number;
   isMobile: boolean;
 }> = ({ title, icon, children, bgColor, borderColor, iconBg, index, isMobile }) => {
-  const desktopTopOffset = 80 + (index * 32);
+  const mobileTopOffset = 80 + (index * 20);
+  const desktopTopOffset = 100 + (index * 32);
   const zIndex = 10 + index;
 
   const handleClick = () => {
@@ -25,14 +26,14 @@ const SEOCard: React.FC<{
   return (
     <div 
       onClick={handleClick}
-      style={!isMobile ? { 
-        top: `${desktopTopOffset}px`,
+      style={{ 
+        top: isMobile ? `${mobileTopOffset}px` : `${desktopTopOffset}px`,
         zIndex: zIndex
-      } : {}}
-      className={`${!isMobile ? 'sticky' : 'static'} mb-8 lg:mb-0 group cursor-pointer h-full active:scale-95 transition-transform duration-200`}
+      }}
+      className="sticky mb-8 lg:mb-0 group cursor-pointer h-full active:scale-95 transition-transform duration-200"
     >
       <div className={`relative ${bgColor} ${borderColor} border p-8 md:p-10 rounded-[2.5rem] h-full shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15)] transition-all duration-700 lg:group-hover:scale-[1.02] lg:group-hover:shadow-2xl overflow-hidden backdrop-blur-md`}>
-        <div className="absolute -right-8 -top-8 w-32 h-32 bg-white/30 rounded-full blur-3xl lg:group-hover:scale-150 transition-transform duration-1000 pointer-events-none"></div>
+        {!isMobile && <div className="absolute -right-8 -top-8 w-32 h-32 bg-white/30 rounded-full blur-3xl lg:group-hover:scale-150 transition-transform duration-1000 pointer-events-none"></div>}
         <div className={`${iconBg} w-14 h-14 rounded-2xl flex items-center justify-center text-white mb-8 shadow-lg lg:group-hover:rotate-12 transition-transform duration-500 relative z-10`}>
           {icon}
         </div>
@@ -67,6 +68,8 @@ const SEOContent: React.FC = () => {
     }
   };
 
+  const bannerTopOffset = isMobile ? 80 + (2 * 20) : 150;
+
   return (
     <section className="py-24 px-5 bg-white relative">
       <div className="max-w-6xl mx-auto">
@@ -97,7 +100,11 @@ const SEOContent: React.FC = () => {
           </SEOCard>
         </div>
 
-        <div onClick={handleBannerClick} className={`mt-12 lg:mt-16 ${!isMobile ? 'sticky' : 'static'} reveal cursor-pointer active:scale-[0.98] transition-transform duration-200`} style={!isMobile ? { top: '150px', zIndex: 15 } : {}}>
+        <div 
+          onClick={handleBannerClick} 
+          className="sticky reveal cursor-pointer active:scale-[0.98] transition-transform duration-200 mt-12 lg:mt-16" 
+          style={{ top: `${bannerTopOffset}px`, zIndex: 15 }}
+        >
           <div className="bg-[#0a192f] rounded-[2.5rem] lg:rounded-[3.5rem] p-8 md:p-14 text-center text-white relative overflow-hidden shadow-2xl group border border-white/5">
             <div className="relative z-10 flex flex-col items-center">
               <div className="bg-blue-600/20 p-5 rounded-3xl border border-blue-500/20 mb-8 lg:group-hover:scale-110 transition-transform duration-700">

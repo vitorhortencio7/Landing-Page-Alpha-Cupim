@@ -1,22 +1,21 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Star, Quote } from 'lucide-react';
 
-const TestimonialCard: React.FC<{ name: string; loc: string; text: string; initials: string; index: number }> = ({ name, loc, text, initials, index }) => {
-  // Cálculo do offset para o efeito de empilhamento no mobile
-  const mobileTopOffset = 80 + (index * 24);
+const TestimonialCard: React.FC<{ name: string; loc: string; text: string; initials: string; index: number; isMobile: boolean }> = ({ name, loc, text, initials, index, isMobile }) => {
+  const mobileTopOffset = 80 + (index * 20);
   const zIndex = 10 + index;
 
   return (
     <div 
       style={{ 
-        top: `${mobileTopOffset}px`,
+        top: isMobile ? `${mobileTopOffset}px` : 'auto',
         zIndex: zIndex
       } as React.CSSProperties}
-      className="testimonial-card-wrapper sticky lg:static mb-10 lg:mb-0"
+      className={`${isMobile ? 'sticky' : 'static'} mb-10 lg:mb-0`}
     >
       <div className="bg-white p-8 lg:p-12 rounded-[3rem] shadow-[0_20px_50px_-15px_rgba(0,0,0,0.06)] border border-slate-100 hover-lift relative group overflow-hidden">
-        <div className="absolute top-8 right-10 text-slate-100/50 group-hover:text-blue-50/50 transition-colors">
+        <div className="absolute top-8 right-10 text-slate-100/50 lg:group-hover:text-blue-50/50 transition-colors">
            <Quote className="w-16 h-16 fill-current" />
         </div>
         
@@ -38,14 +37,22 @@ const TestimonialCard: React.FC<{ name: string; loc: string; text: string; initi
           </div>
         </div>
         
-        {/* Decorative shimmer effect */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 via-blue-500/0 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+        {!isMobile && <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 via-blue-500/0 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>}
       </div>
     </div>
   );
 };
 
 const Testimonials: React.FC = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 1023);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   const reviews = [
     {
       name: "Maria Silva",
@@ -88,6 +95,7 @@ const Testimonials: React.FC = () => {
               loc={rev.loc}
               text={rev.text}
               initials={rev.initials}
+              isMobile={isMobile}
             />
           ))}
         </div>
@@ -97,13 +105,13 @@ const Testimonials: React.FC = () => {
             href={GOOGLE_REVIEWS_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-4 px-8 py-5 bg-white rounded-full shadow-xl border border-blue-50 hover:shadow-2xl hover:-translate-y-1 transition-all duration-500 cursor-pointer group active:scale-95"
+            className="inline-flex items-center gap-4 px-8 py-5 bg-white rounded-full shadow-xl border border-blue-50 lg:hover:shadow-2xl lg:hover:-translate-y-1 transition-all duration-500 cursor-pointer group active:scale-95"
           >
             <div className="flex gap-2.5">
                {[1, 2, 3, 4, 5].map(n => (
                  <Star 
                    key={n} 
-                   className="w-4 h-4 fill-orange-400 text-orange-400 group-hover:scale-110 transition-transform duration-300" 
+                   className="w-4 h-4 fill-orange-400 text-orange-400 lg:group-hover:scale-110 transition-transform duration-300" 
                    style={{ transitionDelay: `${n * 40}ms` }}
                  />
                ))}
@@ -114,10 +122,6 @@ const Testimonials: React.FC = () => {
       </div>
 
       <style>{`
-        .testimonial-card-wrapper {
-          perspective: 1200px;
-        }
-        
         .hover-lift {
           transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }

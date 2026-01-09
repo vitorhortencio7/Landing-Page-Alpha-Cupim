@@ -5,16 +5,17 @@ import { InteractiveHoverButton } from './ui/interactive-hover-button';
 import { Button as MovingBorder } from './ui/moving-border';
 
 const DifferentialItem: React.FC<{ icon: React.ReactNode; text: string; sub: string; index: number; isMobile: boolean }> = ({ icon, text, sub, index, isMobile }) => {
-  const desktopTopOffset = 80 + (index * 24);
+  const mobileTopOffset = 80 + (index * 20);
+  const desktopTopOffset = 100 + (index * 24);
   const zIndex = 10 + index;
 
   return (
     <div 
-      style={!isMobile ? { 
-        top: `${desktopTopOffset}px`,
+      style={{ 
+        top: isMobile ? `${mobileTopOffset}px` : `${desktopTopOffset}px`,
         zIndex: zIndex
-      } : {}}
-      className={`benefit-card-wrapper group cursor-default ${!isMobile ? 'sticky' : 'static'} mb-6 lg:mb-0`}
+      }}
+      className="benefit-card-wrapper group cursor-default sticky mb-6 lg:mb-0"
     >
       <div className="benefit-card h-full">
         {!isMobile && <div className="benefit-card-shimmer"></div>}
@@ -22,13 +23,13 @@ const DifferentialItem: React.FC<{ icon: React.ReactNode; text: string; sub: str
         <div className="flex items-start gap-5 relative z-10">
           <div className="benefit-icon-container shrink-0">
             <div className="benefit-icon-bg"></div>
-            <div className="relative z-10 text-blue-600 group-hover:text-white transition-colors duration-500">
+            <div className="relative z-10 text-blue-600 lg:group-hover:text-white transition-colors duration-500">
               {icon}
             </div>
           </div>
           
           <div className="flex flex-col text-left">
-            <h4 className="font-black text-blue-950 tracking-tight text-lg mb-2 group-hover:text-blue-600 transition-colors">
+            <h4 className="font-black text-blue-950 tracking-tight text-lg mb-2 lg:group-hover:text-blue-600 transition-colors">
               {text}
             </h4>
             <p className="text-sm text-slate-500 leading-relaxed font-medium">
@@ -102,12 +103,14 @@ const Benefits: React.FC = () => {
       <style>{`
         .benefit-card-wrapper { perspective: 1200px; }
         .benefit-card { position: relative; background: white; padding: 2rem; border-radius: 2.5rem; border: 1px solid rgba(37, 99, 235, 0.05); box-shadow: 0 10px 30px -15px rgba(15, 23, 42, 0.05); transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1); overflow: hidden; }
-        @media (min-width: 1024px) { .benefit-card:hover { transform: translateY(-5px) rotateX(2deg) rotateY(-1deg); box-shadow: 0 30px 60px -15px rgba(15, 23, 42, 0.1); border-color: rgba(37, 99, 235, 0.2); } }
+        @media (min-width: 1024px) { 
+          .benefit-card:hover { transform: translateY(-5px) rotateX(2deg) rotateY(-1deg); box-shadow: 0 30px 60px -15px rgba(15, 23, 42, 0.1); border-color: rgba(37, 99, 235, 0.2); }
+          .benefit-card:hover .benefit-card-shimmer { left: 150%; }
+          .benefit-card:hover .benefit-icon-bg { background: #1e3a8a; transform: scale(1.1) rotate(12deg); box-shadow: 0 8px 20px -5px rgba(30, 58, 138, 0.3); }
+        }
         .benefit-card-shimmer { position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.6), transparent); transform: skewX(-25deg); transition: 0.8s; pointer-events: none; z-index: 5; }
-        .benefit-card:hover .benefit-card-shimmer { left: 150%; }
         .benefit-icon-container { position: relative; width: 4rem; height: 4rem; display: flex; align-items: center; justify-content: center; }
         .benefit-icon-bg { position: absolute; inset: 0; background: #f0f7ff; border-radius: 1.25rem; transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); }
-        .benefit-card:hover .benefit-icon-bg { background: #1e3a8a; transform: scale(1.1) rotate(12deg); box-shadow: 0 8px 20px -5px rgba(30, 58, 138, 0.3); }
       `}</style>
     </section>
   );

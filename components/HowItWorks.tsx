@@ -6,8 +6,9 @@ import { InteractiveHoverButton } from './ui/interactive-hover-button';
 
 const Step: React.FC<{ number: string; title: string; desc: string; icon: React.ReactNode; isLast?: boolean; index: number; isMobile: boolean }> = ({ number, title, desc, icon, isLast, index, isMobile }) => (
   <motion.div 
-    initial={isMobile ? false : { opacity: 0, y: 30 }}
-    whileInView={isMobile ? false : { opacity: 1, y: 0 }}
+    // Fix: Using undefined instead of false to avoid type error where boolean is not accepted in this context
+    initial={isMobile ? undefined : { opacity: 0, y: 30 }}
+    whileInView={isMobile ? undefined : { opacity: 1, y: 0 }}
     viewport={{ once: true, margin: "-100px" }}
     transition={{ duration: 0.7, delay: index * 0.15, ease: [0.16, 1, 0.3, 1] }}
     className="flex flex-col lg:items-center text-center flex-1 relative px-4 group"
@@ -61,30 +62,30 @@ const HowItWorks: React.FC = () => {
           <p className="text-slate-500 max-w-lg mx-auto font-medium leading-relaxed">Em 4 passos simples você fica livre de pragas com total segurança e garantia Alpha.</p>
         </div>
 
-        {/* Mobile View: Vertical List */}
+        {/* Mobile View: Vertical List with Sticky Stacking */}
         <div className="lg:hidden flex flex-col gap-4 reveal-stagger">
-           {stepsData.map((s, idx) => (
-             <React.Fragment key={idx}>
-               <div className="bg-white rounded-[2rem] p-6 shadow-xl shadow-blue-900/5 border border-blue-50 flex items-center gap-5">
-                  <div className="w-16 h-16 bg-blue-50 text-blue-900 rounded-2xl flex items-center justify-center shrink-0 relative">
-                     {React.cloneElement(s.i as React.ReactElement<any>, { className: "w-7 h-7" })}
-                     <span className="absolute -top-1 -right-1 bg-orange-500 text-white text-[9px] w-6 h-6 rounded-full flex items-center justify-center border-2 border-white shadow-sm font-black">
-                       {s.n}
-                     </span>
-                  </div>
-                  <div>
-                    <h4 className="font-black text-blue-950 text-base leading-tight">{s.t}</h4>
-                    <p className="text-xs text-slate-500 mt-1 leading-snug font-medium">{s.d}</p>
-                  </div>
-               </div>
-               
-               {idx < stepsData.length - 1 && (
-                 <div className="flex justify-center -my-2 opacity-30">
-                    <ArrowDown className="w-5 h-5 text-blue-400" />
+           {stepsData.map((s, idx) => {
+             const mobileTop = 80 + (idx * 20);
+             return (
+               <React.Fragment key={idx}>
+                 <div 
+                   style={{ top: `${mobileTop}px`, zIndex: 10 + idx }}
+                   className="sticky bg-white rounded-[2rem] p-6 shadow-xl shadow-blue-900/5 border border-blue-50 flex items-center gap-5 mb-4"
+                 >
+                    <div className="w-16 h-16 bg-blue-50 text-blue-900 rounded-2xl flex items-center justify-center shrink-0 relative">
+                       {React.cloneElement(s.i as React.ReactElement<any>, { className: "w-7 h-7" })}
+                       <span className="absolute -top-1 -right-1 bg-orange-500 text-white text-[9px] w-6 h-6 rounded-full flex items-center justify-center border-2 border-white shadow-sm font-black">
+                         {s.n}
+                       </span>
+                    </div>
+                    <div>
+                      <h4 className="font-black text-blue-950 text-base leading-tight">{s.t}</h4>
+                      <p className="text-xs text-slate-500 mt-1 leading-snug font-medium">{s.d}</p>
+                    </div>
                  </div>
-               )}
-             </React.Fragment>
-           ))}
+               </React.Fragment>
+             );
+           })}
         </div>
 
         {/* Desktop View: Horizontal Timeline */}
