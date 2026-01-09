@@ -1,9 +1,9 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Award, Users, MapPin } from 'lucide-react';
 import { GlowingEffect } from './ui/glowing-effect';
 
-const TrustCard: React.FC<{ icon: React.ReactNode; title: string; subtitle: string; index: number }> = ({ icon, title, subtitle, index }) => {
+const TrustCard: React.FC<{ icon: React.ReactNode; title: string; subtitle: string; index: number; isMobile: boolean }> = ({ icon, title, subtitle, index, isMobile }) => {
   const mobileTopOffset = 100 + (index * 20);
 
   return (
@@ -11,16 +11,18 @@ const TrustCard: React.FC<{ icon: React.ReactNode; title: string; subtitle: stri
       style={{ top: `${mobileTopOffset}px` } as React.CSSProperties}
       className="card-container group sticky lg:static mb-8 lg:mb-0 p-[2px] rounded-[2.5rem] relative"
     >
-      <GlowingEffect
-        spread={40}
-        glow={true}
-        disabled={false}
-        proximity={64}
-        inactiveZone={0.01}
-        borderWidth={3}
-      />
+      {!isMobile && (
+        <GlowingEffect
+          spread={40}
+          glow={true}
+          disabled={false}
+          proximity={64}
+          inactiveZone={0.01}
+          borderWidth={3}
+        />
+      )}
       <div className="premium-card relative z-10 h-full">
-        <div className="card-shimmer"></div>
+        {!isMobile && <div className="card-shimmer"></div>}
         <div className="icon-wrapper shrink-0">
           <div className="relative z-10">
             {icon}
@@ -36,6 +38,15 @@ const TrustCard: React.FC<{ icon: React.ReactNode; title: string; subtitle: stri
 };
 
 const TrustProof: React.FC = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   const trustData = [
     {
       icon: <Award className="w-8 h-8 text-blue-700" />,
@@ -65,6 +76,7 @@ const TrustProof: React.FC = () => {
               icon={item.icon}
               title={item.title}
               subtitle={item.subtitle}
+              isMobile={isMobile}
             />
           ))}
         </div>
