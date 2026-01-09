@@ -1,15 +1,14 @@
 
 import React, { useState, useEffect } from 'react';
 import { Zap, Star, Users, ClipboardCheck, HardHat } from 'lucide-react';
-import { Particles } from './ui/particles';
-import { InteractiveHoverButton } from './ui/interactive-hover-button';
-import { AnimatedText } from './ui/animated-underline-text-one';
+import { Particles } from './ui/particles.tsx';
+import { InteractiveHoverButton } from './ui/interactive-hover-button.tsx';
+import { AnimatedText } from './ui/animated-underline-text-one.tsx';
 
 const Hero: React.FC = () => {
   const WHATSAPP_LINK = "https://api.whatsapp.com/send?phone=5588999010860&text=Olá, gostaria de começar meu orçamento gratuito";
   const WHATSAPP_ICON = "https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg";
   
-  // URL da nova imagem fornecida pelo usuário
   const HERO_IMAGE = "https://i.ibb.co/Q2r5Smp/9.jpg"; 
 
   const [activeCard, setActiveCard] = useState(0);
@@ -73,27 +72,28 @@ const Hero: React.FC = () => {
             
             <div className="mb-6">
               <h1 className="text-[38px] md:text-5xl lg:text-7xl font-black leading-[1.1] tracking-tight text-white mb-2">
-                Pragas no imóvel?
+                Dedetização em Juazeiro do Norte
               </h1>
               <AnimatedText 
                 text="Nós resolvemos."
                 className="items-center lg:items-start"
-                textClassName="text-[38px] md:text-5xl lg:text-7xl font-black italic text-blue-400 tracking-tight leading-[1.1]"
+                textClassName="text-[38px] md:text-5xl lg:text-7xl font-black italic text-blue-400 tracking-tight leading-[1.1] text-center lg:text-left"
                 underlineClassName="text-blue-500/40"
                 underlineDuration={2}
               />
             </div>
             
             <p className="text-lg md:text-xl text-blue-100/80 mb-8 font-medium leading-relaxed max-w-xl mx-auto lg:mx-0">
-              Controle de pragas com <span className="text-white font-bold underline decoration-blue-500/40">equipe especializada</span> e orçamento gratuito. A solução real para sua casa ou empresa.
+              Controle de pragas com <span className="text-white font-bold underline decoration-blue-500/40">equipe especializada</span> no Cariri. Orçamento gratuito para sua casa ou empresa.
             </p>
 
             <div className="lg:hidden mb-10 relative">
               <div className="relative z-10 rounded-[2.5rem] overflow-hidden border-4 border-white/10 shadow-2xl aspect-[4/3]">
                 <img 
                   src={HERO_IMAGE} 
-                  alt="Equipe Alpha Cupim em ação" 
+                  alt="Técnico da Alpha Cupim realizando dedetização em Juazeiro do Norte" 
                   className="w-full h-full object-cover"
+                  loading="eager"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0a192f]/80 to-transparent"></div>
                 
@@ -124,7 +124,7 @@ const Hero: React.FC = () => {
                 text="AGENDAR VISITA AGORA"
                 href={WHATSAPP_LINK}
                 className="w-full sm:w-auto"
-                icon={<img src={WHATSAPP_ICON} alt="WhatsApp" className="w-6 h-6" />}
+                icon={<img src={WHATSAPP_ICON} alt="WhatsApp" className="w-6 h-6" loading="lazy" />}
               />
               
               <div className="flex items-center gap-3">
@@ -132,7 +132,7 @@ const Hero: React.FC = () => {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
                 </div>
-                <span className="text-[10px] font-bold text-blue-400 uppercase tracking-widest whitespace-nowrap">Técnicos em Rota Hoje</span>
+                <span className="text-[10px] font-bold text-blue-400 uppercase tracking-widest whitespace-nowrap">Técnicos no Cariri Hoje</span>
               </div>
             </div>
           </div>
@@ -141,8 +141,9 @@ const Hero: React.FC = () => {
             <div className="relative z-10 rounded-[3.5rem] overflow-hidden border-8 border-white/5 shadow-2xl group transition-transform duration-700 hover:scale-[1.01]">
               <img 
                 src={HERO_IMAGE} 
-                alt="Técnico Alpha Cupim trabalhando" 
+                alt="Serviço profissional de controle de pragas no Cariri" 
                 className="w-full h-auto object-cover min-h-[500px]"
+                loading="eager"
               />
               <div className="absolute inset-0 bg-blue-900/10 group-hover:bg-transparent transition-colors duration-500"></div>
               

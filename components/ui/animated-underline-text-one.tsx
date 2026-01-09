@@ -1,7 +1,7 @@
 
 import * as React from "react";
-import { motion, Variants } from "motion/react";
-import { cn } from "../../lib/utils";
+import { motion, Variants } from "framer-motion";
+import { cn } from "../../lib/utils.ts";
 
 interface AnimatedTextProps extends React.HTMLAttributes<HTMLDivElement> {
   text: string;
@@ -43,15 +43,14 @@ const AnimatedText = React.forwardRef<HTMLDivElement, AnimatedTextProps>(
     return (
       <div
         ref={ref}
-        className={cn("flex flex-col items-center justify-center", props.className)}
+        className={cn("flex flex-col", props.className)}
       >
-        <div className="relative">
+        <div className="relative inline-block">
           <motion.div
-            className={cn("text-4xl font-bold text-center", textClassName)}
-            initial={{ y: -10, opacity: 0 }}
+            className={cn("font-bold", textClassName)}
+            initial={{ y: -5, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6 }}
-            whileHover={{ scale: 1.02 }}
           >
             {text}
           </motion.div>

@@ -7,6 +7,7 @@ import ClientCarousel from './components/ClientCarousel.tsx';
 import TrustProof from './components/TrustProof.tsx';
 import Services from './components/Services.tsx';
 import Benefits from './components/Benefits.tsx';
+import SEOContent from './components/SEOContent.tsx';
 import HowItWorks from './components/HowItWorks.tsx';
 import Testimonials from './components/Testimonials.tsx';
 import FAQ from './components/FAQ.tsx';
@@ -34,6 +35,8 @@ const App: React.FC = () => {
         <section id="beneficios" className="scroll-mt-32">
           <Benefits />
         </section>
+
+        <SEOContent />
         
         <section id="como-funciona" className="scroll-mt-32">
           <HowItWorks />

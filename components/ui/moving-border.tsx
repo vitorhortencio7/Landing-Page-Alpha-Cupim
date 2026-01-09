@@ -21,7 +21,8 @@ export function Button({
   ...otherProps
 }: {
   borderRadius?: string;
-  children: React.ReactNode;
+  // Fixed: children made optional to prevent TS from reporting missing prop when passed as JSX children
+  children?: React.ReactNode;
   as?: any;
   containerClassName?: string;
   borderClassName?: string;
@@ -44,6 +45,7 @@ export function Button({
         className="absolute inset-0"
         style={{ borderRadius: `calc(${borderRadius} * 0.96)` }}
       >
+        {/* Fixed: ensuring MovingBorder call satisfies the now optional children prop */}
         <MovingBorder duration={duration} rx="30%" ry="30%">
           <div
             className={cn(
@@ -76,7 +78,8 @@ export const MovingBorder = ({
   ry,
   ...otherProps
 }: {
-  children: React.ReactNode;
+  // Fixed: children made optional for MovingBorder component
+  children?: React.ReactNode;
   duration?: number;
   rx?: string;
   ry?: string;
