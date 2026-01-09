@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { ShieldAlert, Info, Calendar, ArrowRight } from 'lucide-react';
+import { GlowingEffect } from './ui/glowing-effect.tsx';
 
 const SEOCard: React.FC<{ 
   title: string; 
@@ -30,9 +31,19 @@ const SEOCard: React.FC<{
         top: isMobile ? `${mobileTopOffset}px` : `${desktopTopOffset}px`,
         zIndex: zIndex
       }}
-      className="sticky mb-8 lg:mb-0 group cursor-pointer h-full active:scale-95 transition-transform duration-200"
+      className="sticky mb-8 lg:mb-0 group cursor-pointer h-full active:scale-95 transition-transform duration-200 p-[2px] rounded-[2.5rem] overflow-visible"
     >
-      <div className={`relative ${bgColor} ${borderColor} border p-8 md:p-10 rounded-[2.5rem] h-full shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15)] transition-all duration-700 lg:group-hover:scale-[1.02] lg:group-hover:shadow-2xl overflow-hidden backdrop-blur-md`}>
+      {!isMobile && (
+        <GlowingEffect
+          spread={40}
+          glow={true}
+          disabled={false}
+          proximity={64}
+          inactiveZone={0.01}
+          borderWidth={3}
+        />
+      )}
+      <div className={`relative z-10 ${bgColor} ${borderColor} border p-8 md:p-10 rounded-[2.5rem] h-full shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15)] transition-all duration-700 lg:group-hover:scale-[1.01] lg:group-hover:shadow-2xl overflow-hidden backdrop-blur-md`}>
         {!isMobile && <div className="absolute -right-8 -top-8 w-32 h-32 bg-white/30 rounded-full blur-3xl lg:group-hover:scale-150 transition-transform duration-1000 pointer-events-none"></div>}
         <div className={`${iconBg} w-14 h-14 rounded-2xl flex items-center justify-center text-white mb-8 shadow-lg lg:group-hover:rotate-12 transition-transform duration-500 relative z-10`}>
           {icon}
@@ -102,10 +113,20 @@ const SEOContent: React.FC = () => {
 
         <div 
           onClick={handleBannerClick} 
-          className="sticky reveal cursor-pointer active:scale-[0.98] transition-transform duration-200 mt-12 lg:mt-16" 
+          className="sticky reveal cursor-pointer active:scale-[0.98] transition-transform duration-200 mt-12 lg:mt-16 p-[2px] rounded-[2.5rem] lg:rounded-[3.5rem]" 
           style={{ top: `${bannerTopOffset}px`, zIndex: 15 }}
         >
-          <div className="bg-[#0a192f] rounded-[2.5rem] lg:rounded-[3.5rem] p-8 md:p-14 text-center text-white relative overflow-hidden shadow-2xl group border border-white/5">
+          {!isMobile && (
+            <GlowingEffect
+              spread={60}
+              glow={true}
+              disabled={false}
+              proximity={80}
+              inactiveZone={0.01}
+              borderWidth={3}
+            />
+          )}
+          <div className="bg-[#0a192f] rounded-[2.5rem] lg:rounded-[3.5rem] p-8 md:p-14 text-center text-white relative overflow-hidden shadow-2xl group border border-white/5 z-10">
             <div className="relative z-10 flex flex-col items-center">
               <div className="bg-blue-600/20 p-5 rounded-3xl border border-blue-500/20 mb-8 lg:group-hover:scale-110 transition-transform duration-700">
                 <Info className="w-8 h-8 md:w-10 md:h-10 text-blue-400" />

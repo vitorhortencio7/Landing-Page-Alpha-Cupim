@@ -3,8 +3,10 @@
 import { cn } from "../../lib/utils.ts";
 import React, { ReactNode } from "react";
 
-interface AuroraBackgroundProps extends React.HTMLProps<HTMLDivElement> {
-  children: ReactNode;
+// Fix: Explicitly include className in AuroraBackgroundProps to resolve TypeScript error where Property 'className' does not exist
+interface AuroraBackgroundProps extends React.HTMLAttributes<HTMLDivElement> {
+  className?: string;
+  children?: ReactNode;
   showRadialGradient?: boolean;
 }
 
